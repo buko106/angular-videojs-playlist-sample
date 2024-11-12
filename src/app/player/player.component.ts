@@ -26,18 +26,21 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const player = videojs(this.target.nativeElement, {
-      controls: true, // TODO: コントロールの代わりにタップできるボタンを置く
-      controlBar: {
-        skipButtons: {
-          forward: 10,
-          backward: 10,
+      controls: true,
+      children: {
+        bigPlayButton: {},
+        controlBar: {
+          skipButtons: {
+            forward: 10,
+            backward: 10,
+          }
         }
       }
     });
 
     player.on('playlistitem', () => {
       if ((player as any).playlist.currentIndex() > 0) {
-        player.controls(true); // ジングルが終わってからコントロールがでる
+        (player as any).controlBar.show();
       }
     })
 
@@ -66,6 +69,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
     ];
 
     player.addChild('ServiceLogoComponent');
+    (player as any).controlBar.hide();
     (player as any).playlist(videoList);
     (player as any).playlist.autoadvance(0); // 自動で次のビデオに移行
     this.player = player;
