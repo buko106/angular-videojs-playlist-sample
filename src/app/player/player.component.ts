@@ -1,10 +1,9 @@
 import videojs from 'video.js';
 import 'videojs-playlist';
+import './service-logo';
 
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import Player from "video.js/dist/types/player";
-import SpatialNavKeyCodes from "video.js/dist/types/utils/spatial-navigation-key-codes";
-import play = SpatialNavKeyCodes.codes.play;
 
 
 @Component({
@@ -66,7 +65,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
       }
     ];
 
-
+    player.addChild('ServiceLogoComponent');
     (player as any).playlist(videoList);
     (player as any).playlist.autoadvance(0); // 自動で次のビデオに移行
     this.player = player;
